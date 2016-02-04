@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -69,6 +71,11 @@ public class Match implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date playedAt;
 
+    private String winnerId;
+    @ManyToOne
+    @JoinColumn(name = "winnerId", insertable = false, updatable = false)
+    private Player winner;
+    
     @ElementCollection
     private List<Set> sets = new ArrayList<>();
     
@@ -115,20 +122,30 @@ public class Match implements Serializable {
         this.player2 = player2;
     }
     
-    @Transient
-    public Player getWinner() {
+    @PreUpdate
+    @PrePersist
+    void calculateWinner() {
         int p1 = 0;
         int p2 = 0;
-        for (Set set : this.sets) {
-            if (set.getScorePlayer1() > set.getScorePlayer2()) {
-                p1++;
-            } else if (set.getScorePlayer2() > set.getScorePlayer1()) {
-                p2++;
-            }
+        if (this.sets != null && !this.sets.isEmpty()) {
+            for (Set set : this.sets) {
+                if (set.getScorePlayer1() > set.getScorePlayer2()) {
+                    p1++;
+                } else if (set.getScorePlayer2() > set.getScorePlayer1()) {
+                    p2++;
+                }
+            }            
         }
-        if (p1 > p2) return this.player1;
-        if (p2 > p1) return this.player2;
-        return null;
+        if (p1 > p2) this.winnerId = this.player1Id;
+        if (p2 > p1) this.winnerId = this.player2Id;
+    }
+
+    public String getWinnerId() {
+        return winnerId;
+    }
+    
+    public Player getWinner() {
+        return this.winner;
     }
     
     public Date getPlayedAt() {

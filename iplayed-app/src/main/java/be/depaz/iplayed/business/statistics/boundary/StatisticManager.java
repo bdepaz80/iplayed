@@ -58,7 +58,6 @@ public class StatisticManager {
                 } else {
                     scoreboard.put(match.getWinner(), 1);
                 }
-                System.out.println("Winner: " + match.getWinner() + " counter=" + scoreboard.get(match.getWinner()));
             }
         }
         
