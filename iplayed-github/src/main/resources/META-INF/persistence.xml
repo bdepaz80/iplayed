@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="iplayed" transaction-type="JTA">
+        <class>be.depaz.iplayed.business.players.entity.Player</class>
+        <class>be.depaz.iplayed.business.matches.entity.Match</class>
+        <class>be.depaz.iplayed.business.matches.entity.Set</class>
+        <properties>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform"/>
+            <property name="eclipselink.nosql.connection-spec" value="org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec"/>
+            <property name="eclipselink.nosql.property.mongo.port" value="27017"/>
+            <property name="eclipselink.nosql.property.mongo.host" value="192.168.99.100"/>
+            <property name="eclipselink.nosql.property.mongo.db" value="iplayed"/>
+            <property name="eclipselink.logging.level" value="CONFIG"/>
+        </properties>
+    </persistence-unit>
+</persistence>
