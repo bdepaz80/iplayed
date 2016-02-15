@@ -63,7 +63,8 @@ public class ResourceIT {
                 .target(locationM1)
                 .request(MediaType.APPLICATION_JSON)
                 .get(JsonObject.class);
-        assertTrue(foundM1.getString("player1Id").equals("bdepaz"));
+        System.out.println("Found : " + foundM1);
+        assertTrue(foundM1.getJsonObject("player1").getString("username").equals("bdepaz"));
         
         //Find all matches
         Response findAllMatchesResponse = this.provider.target()
@@ -83,14 +84,20 @@ public class ResourceIT {
         for (int i=0; i<playerMatches.size(); i++) {
             JsonObject matchObject = playerMatches.getJsonObject(i);
             assertTrue(
-                    matchObject.getString("player1Id").equalsIgnoreCase("bdepaz") || 
-                    matchObject.getString("player2Id").equalsIgnoreCase("bdepaz"));
+                    matchObject.getString("player1.username").equalsIgnoreCase("bdepaz") || 
+                    matchObject.getString("player2.username").equalsIgnoreCase("bdepaz"));
         }
     }
     
     
     
     private String createMatch(String player1, String player2) {
+        JsonObjectBuilder playerBuilder = Json.createObjectBuilder();
+        playerBuilder.add("username", player1);
+        JsonObject p1 = playerBuilder.build();
+        playerBuilder.add("username", player2);
+        JsonObject p2 = playerBuilder.build();
+        
         JsonObjectBuilder matchBuilder = Json.createObjectBuilder();
         JsonArrayBuilder setsBuilder = Json.createArrayBuilder();
         JsonObjectBuilder setBuilder = Json.createObjectBuilder();
@@ -100,8 +107,8 @@ public class ResourceIT {
         Random rnd = new Random(System.currentTimeMillis());
         
         JsonObject matchToCreate  = matchBuilder
-                .add("player1Id", player1)
-                .add("player2Id", player2)
+                .add("player1", p1)
+                .add("player2", p2)
                 .add("sets", setsBuilder
                         .add(setBuilder
                                 .add("scorePlayer1", rnd.nextInt(12))

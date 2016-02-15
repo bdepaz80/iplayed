@@ -59,23 +59,23 @@ public class Match implements Serializable {
     @Field(name = "_id")
     private String id;
     
-    private String player1Id;
     @ManyToOne
     @JoinColumn(name = "player1Id", insertable = false, updatable = false)
     private Player player1;
-    private String player2Id;
+    private String player1Id;
     @ManyToOne
     @JoinColumn(name = "player2Id", insertable = false, updatable = false)
     private Player player2;
+    private String player2Id;
     
     @XmlJavaTypeAdapter(value = DateAdapter.class, type = Date.class)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date playedAt;
 
-    private String winnerId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "winnerId", insertable = false, updatable = false)
     private Player winner;
+    private String winnerId;
     
     @ElementCollection
     private List<Set> sets = new ArrayList<>();
@@ -91,28 +91,13 @@ public class Match implements Serializable {
         this.id = id;
     }
 
-    public String getPlayer1Id() {
-        return player1Id;
-    }
-
-    public void setPlayer1Id(String player1Id) {
-        this.player1Id = player1Id;
-    }
-
-    public String getPlayer2Id() {
-        return player2Id;
-    }
-
-    public void setPlayer2Id(String player2Id) {
-        this.player2Id = player2Id;
-    }
-
     public Player getPlayer1() {
         return player1;
     }
 
     public void setPlayer1(Player player1) {
         this.player1 = player1;
+        this.player1Id = player1.getUsername();
     }
 
     public Player getPlayer2() {
@@ -121,6 +106,7 @@ public class Match implements Serializable {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+        this.player2Id = player2.getUsername();
     }
     
     @PreUpdate
@@ -137,13 +123,14 @@ public class Match implements Serializable {
                 }
             }            
         }
-        if (p1 > p2) this.winnerId = this.player1Id;
-        if (p2 > p1) this.winnerId = this.player2Id;
+        if (p1 > p2) setWinner(this.player1);
+        if (p2 > p1) setWinner(this.player2);
     }
 
-    public String getWinnerId() {
-        return winnerId;
-    }
+    private void setWinner(Player winner) {
+        this.winner = winner;
+        this.winnerId = winner.getUsername();
+    } 
     
     public Player getWinner() {
         return this.winner;
@@ -167,7 +154,8 @@ public class Match implements Serializable {
 
     @Override
     public String toString() {
-        return "Match{" + "id=" + id + ", player1Id=" + player1Id + ", player2Id=" + player2Id + ", playedAt=" + playedAt + ", sets=" + sets + '}';
+        return "Match{" + "id=" + id + ", player1=" + player1 + ", player2=" + player2 + ", playedAt=" + playedAt + ", winner=" + winner + ", sets=" + sets + '}';
     }
+
    
 }
