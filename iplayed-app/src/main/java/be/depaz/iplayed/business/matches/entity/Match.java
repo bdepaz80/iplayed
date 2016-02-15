@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -72,7 +73,7 @@ public class Match implements Serializable {
     private Date playedAt;
 
     private String winnerId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "winnerId", insertable = false, updatable = false)
     private Player winner;
     

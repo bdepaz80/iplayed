@@ -51,6 +51,7 @@ public class StatisticManager {
                 totalPoints += set.getScorePlayer2();
             }
             
+            System.out.println("Match.getWinner() = " + match.getWinner());
             if (match.getWinner() != null) {
                 if (scoreboard.containsKey(match.getWinner())) {
                     int current = scoreboard.get(match.getWinner());
