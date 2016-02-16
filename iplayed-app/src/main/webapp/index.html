@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="css/app.css">
         <script type="text/javascript" src="scripts/angular.min.js"></script>
         <script type="text/javascript" src="scripts/angular-resource.min.js"></script>
+        <script type="text/javascript" src="scripts/angular-route.min.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
+        <script type="text/javascript" src="scripts/controllers.js"></script>
     </head>
     <body>
         
@@ -16,9 +18,9 @@
                   <a class="navbar-brand" href="#">iPlayed</a>
                 </div>
                 <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Player</a></li> 
-                  <li><a href="#">About</a></li>
+                  <li class="active"><a href="#statistics">Home</a></li>
+                  <li><a href="#player">Player</a></li> 
+                  <li><a href="#about">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <button type="button" class="btn btn-default navbar-btn">Sign in</button>
@@ -26,33 +28,7 @@
             </div>
         </nav>
         
-        <div ng-controller="StatisticsController as sc">
-            <h3>Statistics</h3>
-            <table class="table table-striped table-bordered table-condensed">
-                <tr>
-                    <td>Total matches</td>
-                    <td>{{sc.statistics.totalMatches}}</td>
-                </tr>
-                <tr>
-                    <td>Total sets: </td>
-                    <td>{{sc.statistics.totalSets}}</td>
-                </tr>
-                <tr>
-                    <td>Total points: </td>
-                    <td>{{sc.statistics.totalPoints}}</td>
-                </tr>
-                <tr>
-                    <td>Total players: </td>
-                    <td>{{sc.statistics.totalPlayers}}</td>
-                </tr>
-            </table>
-            <h3>Scoreboard</h3>
-            <table class="table table-striped table-bordered table-condensed">
-                <tr ng-repeat="playerWin in sc.statistics.playerWins.entry | orderBy:'-value'">
-                    <td>{{playerWin.value}}</td>
-                    <td>{{playerWin.key.username}}</td>
-                </tr>
-            </table>
-        </div>
+        <div ng-view></div>
+        
     </body>
 </html>

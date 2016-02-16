@@ -4,17 +4,25 @@
  * and open the template in the editor.
  */
 (function() {
-    var app = angular.module('iplayed', ['ngResource']);
+    var app = angular.module('iplayed', ['ngRoute', 'ngResource', 'iPlayedControllers']);
     
-    app.factory("Statistics", ['$resource', function($resource) {
-       return $resource("resources/statistics/:Username",
-            {Username: "@Username"}
-       ); 
-    }]);
-    
-    app.controller('StatisticsController', ['$scope', 'Statistics', function($scope, Statistics){
-        this.statistics = Statistics.get();
-    }]);
-    
-    var statistics = {"totalMatches":3,"totalSets":9,"totalPoints":97,"totalPlayers":3,"playerWins":{"entry":[{"key":{"username":"bdepaz","firstname":"Bert","lastname":"Depaz"},"value":2},{"key":{"username":"dfranssen","firstname":"Dirk","lastname":"Franssen"},"value":1}]}};
+    app.config(['$routeProvider', 
+        function($routeProvider) {
+            $routeProvider.
+                when('/statistics', {
+                    templateUrl: 'pages/statistics.html',
+                    controller: 'StatisticsController'
+                }).
+                when('/player', {
+                    templateUrl: 'pages/player.html',
+                    controller: 'PlayerController'                        
+                }).
+                when('/about', {
+                    templateUrl: 'pages/about.html',
+                    controller: 'AboutController'                        
+                }).
+                otherwise({
+                    redirectTo: 'statistics'
+                });
+        }]);
 })();
