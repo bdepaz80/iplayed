@@ -1,26 +1,26 @@
 <div ng-controller="StatisticsController as controller">
-    <h3>Statistics...</h3>
-    <table class="table table-striped table-bordered table-condensed">
-        <tr>
-            <td>Total matches</td>
-            <td>{{controller.statistics.totalMatches}}</td>
-        </tr>
-        <tr>
-            <td>Total sets: </td>
-            <td>{{controller.statistics.totalSets}}</td>
-        </tr>
-        <tr>
-            <td>Total points: </td>
-            <td>{{controller.statistics.totalPoints}}</td>
-        </tr>
-        <tr>
-            <td>Total players: </td>
-            <td>{{controller.statistics.totalPlayers}}</td>
-        </tr>
-    </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Statistics</div>
+        <div class="panel-body">
+            <button class="btn btn-primary" type="button">
+                Players <span class="badge">{{controller.statistics.totalPlayers}}</span>
+            </button>
+            <button class="btn btn-info" type="button">
+                Matches <span class="badge">{{controller.statistics.totalMatches}}</span>
+            </button>
+            <button class="btn btn-default" type="button">
+                Sets <span class="badge">{{controller.statistics.totalSets}}</span>
+            </button>
+            <button class="btn btn-default" type="button">
+                Points <span class="badge">{{controller.statistics.totalPoints}}</span>
+            </button>                     
+        </div>
+    </div>
+
     <h3>Scoreboard</h3>
     <table class="table table-striped table-bordered table-condensed">
-        <tr ng-repeat="playerWin in controller.statistics.playerWins.entry | orderBy:'-value'">
+        <tr ng-repeat="playerWin in controller.statistics.playerWins.entry| orderBy:'-value'">
             <td>{{playerWin.value}}</td>
             <td>{{playerWin.key.username}}</td>
         </tr>
