@@ -3,8 +3,55 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : Feb 16, 2016, 12:36:15 PM
     Author     : bdepaz
 */
 body { padding-top: 70px; }
+
+.huge {
+    font-size: 48px;
+}
+
+.panel-yellow {
+  border-color: #f0ad4e;
+}
+.panel-yellow > .panel-heading {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+.panel-yellow > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #f0ad4e;
+}
+.panel-yellow > .panel-heading .badge {
+  color: #d9edf7;
+  background-color: #31708f;
+}
+.panel-yellow > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #f0ad4e;
+}
+
+.panel-red {
+  border-color: #d9534f;
+}
+.panel-red > .panel-heading {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+.panel-red > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #d9534f;
+}
+.panel-red > .panel-heading .badge {
+  color: #d9534f;
+  background-color: #d9534f;
+}
+.panel-red > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #d9534f;
+}
+
+.glyphicon-2x { font-size: 2em; }
+.glyphicon-3x { font-size: 3em; }
+.glyphicon-4x { font-size: 4em; }
+.glyphicon-5x { font-size: 5em; }

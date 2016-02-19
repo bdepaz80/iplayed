@@ -1,20 +1,65 @@
 <div ng-controller="StatisticsController as controller">
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Statistics</div>
-        <div class="panel-body">
-            <button class="btn btn-primary" type="button">
-                Players <span class="badge">{{controller.statistics.totalPlayers}}</span>
-            </button>
-            <button class="btn btn-info" type="button">
-                Matches <span class="badge">{{controller.statistics.totalMatches}}</span>
-            </button>
-            <button class="btn btn-default" type="button">
-                Sets <span class="badge">{{controller.statistics.totalSets}}</span>
-            </button>
-            <button class="btn btn-default" type="button">
-                Points <span class="badge">{{controller.statistics.totalPoints}}</span>
-            </button>                     
+    <div class="row">
+        <div class="col-lg-3 col-md-6 ng-isolate-scope">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-user glyphicon-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{controller.statistics.totalPlayers}}</div>
+                            <div>Players</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 ng-isolate-scope">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-fire glyphicon-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{controller.statistics.totalMatches}}</div>
+                            <div>Matches</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 ng-isolate-scope">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-signal glyphicon-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{controller.statistics.totalSets}}</div>
+                            <div>Sets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 ng-isolate-scope">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-signal glyphicon-4x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{controller.statistics.totalPoints}}</div>
+                            <div>Points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
