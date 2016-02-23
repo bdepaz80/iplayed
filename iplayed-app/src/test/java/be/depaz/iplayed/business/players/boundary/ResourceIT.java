@@ -8,7 +8,9 @@ package be.depaz.iplayed.business.players.boundary;
 import com.airhacks.rulz.jaxrsclient.JAXRSClientProvider;
 import static com.airhacks.rulz.jaxrsclient.JAXRSClientProvider.buildWithURI;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -29,14 +31,27 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class ResourceIT {
     
+    private static final List<Player> players = Arrays.asList(
+            new Player("bdepaz", "Bert", "Depaz"),
+            new Player("dfranssen", "Dirk", "Franssen"),
+            new Player("ptruyers", "Peter", "Truyers"),
+            new Player("jvdh", "Jimmy", "Vanderheyden"),
+            new Player("kschepers", "Kris", "Schepers")
+    );
+    
     @Rule
     public JAXRSClientProvider provider = buildWithURI("http://localhost:8080/iplayed/resources");
     
     @Test
     public void crud() {
-        String locationP1 = createPlayer("bdepaz", "Bert", "Depaz");
-        String locationP2 = createPlayer("dfranssen", "Dirk", "Franssen");
-        String locationP3 = createPlayer("ptruyers", "Peter", "Truyers");
+        for (Player p : players) {
+            createPlayer(p.username, p.firstname, p.lastname);
+        }
+        
+        String locationP1 = createPlayer(
+                players.get(0).username, 
+                players.get(0).firstname, 
+                players.get(0).lastname);
         
         //Find the first player
         JsonObject foundP1 = this.provider.client()
@@ -66,6 +81,15 @@ public class ResourceIT {
         System.out.println("Found : " + foundM1);
         assertTrue(foundM1.getJsonObject("player1").getString("username").equals("bdepaz"));
         
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        createRandomMatch();
+        
         //Find all matches
         Response findAllMatchesResponse = this.provider.target()
                 .path("matches").request().get();
@@ -89,7 +113,15 @@ public class ResourceIT {
         }
     }
     
-    
+    private String createRandomMatch() {
+        Random rnd = new Random(System.currentTimeMillis());
+        Player p1 = players.get(rnd.nextInt(players.size()));
+        Player p2 = players.get(rnd.nextInt(players.size()));
+        while (p2.equals(p1)) {
+            p2 = players.get(rnd.nextInt(players.size()));
+        }
+        return createMatch(p1.username, p2.username);
+    }
     
     private String createMatch(String player1, String player2) {
         JsonObjectBuilder playerBuilder = Json.createObjectBuilder();
@@ -145,6 +177,17 @@ public class ResourceIT {
         assertThat(postResponse.getStatus(), is(201));
         return postResponse.getHeaderString("Loc"
                 + "ation");
+    }
+    
+    private static class Player {
+        String username;
+        String firstname;
+        String lastname;
+        public Player(String username, String firstname, String lastname) {
+            this.username = username;
+            this.firstname = firstname;
+            this.lastname = lastname;
+        }
     }
     
 }

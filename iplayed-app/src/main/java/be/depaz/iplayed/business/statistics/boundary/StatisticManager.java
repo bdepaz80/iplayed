@@ -12,9 +12,15 @@ import be.depaz.iplayed.business.matches.entity.Set;
 import be.depaz.iplayed.business.players.boundary.PlayerManager;
 import be.depaz.iplayed.business.players.entity.Player;
 import be.depaz.iplayed.business.statistics.entity.Statistics;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -26,21 +32,21 @@ import javax.interceptor.Interceptors;
 @Stateless
 @Interceptors(BoundaryLogger.class)
 public class StatisticManager {
-    
+
     @Inject
     MatchManager matchManager;
-    
+
     @Inject
     PlayerManager playerManager;
-    
+
     public Statistics getStatistics() {
         int totalMatches = 0;
         int totalSets = 0;
         int totalPoints = 0;
         int totalPlayers = 0;
-        
+
         Map<Player, Integer> scoreboard = new HashMap<>();
-        
+
         List<Match> matches = matchManager.all();
         totalMatches = matches.size();
         for (Match match : matches) {
@@ -50,7 +56,7 @@ public class StatisticManager {
                 totalPoints += set.getScorePlayer1();
                 totalPoints += set.getScorePlayer2();
             }
-            
+
             System.out.println("Match.getWinner() = " + match.getWinner());
             if (match.getWinner() != null) {
                 if (scoreboard.containsKey(match.getWinner())) {
@@ -61,17 +67,41 @@ public class StatisticManager {
                 }
             }
         }
-        
+
         List<Player> players = playerManager.all();
         totalPlayers = players.size();
-        
+
         Statistics statistics = new Statistics();
         statistics.setTotalMatches(totalMatches);
         statistics.setTotalSets(totalSets);
         statistics.setTotalPoints(totalPoints);
         statistics.setTotalPlayers(totalPlayers);
-        statistics.setPlayerWins(scoreboard);
+        statistics.setPlayerWins(sortByValue(scoreboard));
         return statistics;
     }
-    
+
+    private static Map<Player, Integer> sortByValue(Map<Player, Integer> unsortMap) {
+
+        // Convert Map to List
+        List<Map.Entry<Player, Integer>> list
+                = new LinkedList<Map.Entry<Player, Integer>>(unsortMap.entrySet());
+
+        // Sort list with comparator, to compare the Map values
+        Collections.sort(list, new Comparator<Map.Entry<Player, Integer>>() {
+            public int compare(
+                    Map.Entry<Player, Integer> o1,
+                    Map.Entry<Player, Integer> o2) {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        // Convert sorted map back to a Map
+        Map<Player, Integer> sortedMap = new LinkedHashMap<Player, Integer>();
+        for (Iterator<Map.Entry<Player, Integer>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<Player, Integer> entry = it.next();
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedMap;
+    }
+
 }
