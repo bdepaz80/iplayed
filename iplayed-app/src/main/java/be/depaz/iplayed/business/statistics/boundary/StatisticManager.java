@@ -84,23 +84,17 @@ public class StatisticManager {
 
         // Convert Map to List
         List<Map.Entry<Player, Integer>> list
-                = new LinkedList<Map.Entry<Player, Integer>>(unsortMap.entrySet());
+                = new LinkedList<>(unsortMap.entrySet());
 
         // Sort list with comparator, to compare the Map values
-        Collections.sort(list, new Comparator<Map.Entry<Player, Integer>>() {
-            public int compare(
-                    Map.Entry<Player, Integer> o1,
-                    Map.Entry<Player, Integer> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        Collections.sort(list, (Map.Entry<Player, Integer> o1, Map.Entry<Player, Integer> o2) 
+                -> (o2.getValue()).compareTo(o1.getValue()));
 
         // Convert sorted map back to a Map
-        Map<Player, Integer> sortedMap = new LinkedHashMap<Player, Integer>();
-        for (Iterator<Map.Entry<Player, Integer>> it = list.iterator(); it.hasNext();) {
-            Map.Entry<Player, Integer> entry = it.next();
+        Map<Player, Integer> sortedMap = new LinkedHashMap<>();
+        list.stream().forEach((entry) -> {
             sortedMap.put(entry.getKey(), entry.getValue());
-        }
+        });
         return sortedMap;
     }
 
