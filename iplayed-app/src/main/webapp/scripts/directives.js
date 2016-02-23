@@ -53,7 +53,10 @@ iPlayedDirectives.directive('chart', function ($timeout) {
                             'width': $scope.width,
                             'height': $scope.height,
                             'bar': {groupWidth: "95%"},
-                            'hAxis': { textPosition: 'none' },
+                            'hAxis': { 
+                                'textPosition': 'none',
+                                'gridlines': { color: 'transparent' }
+                            },
                             'legend': { position: "none" },
                         };
                         chart.draw(data, options);
