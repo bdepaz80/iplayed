@@ -18,9 +18,9 @@
                     templateUrl: 'pages/statistics.html',
                     controller: 'StatisticsController'
                 }).
-                when('/player', {
-                    templateUrl: 'pages/player.html',
-                    controller: 'PlayerController'
+                when('/players', {
+                    templateUrl: 'pages/players.html',
+                    controller: 'PlayersController'
                 }).
                 when('/about', {
                     templateUrl: 'pages/about.html',

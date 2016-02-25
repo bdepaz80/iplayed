@@ -15,7 +15,7 @@ iPlayedControllers.controller('StatisticsController', ['$scope', 'Statistics', f
         $scope.chartHeight = 320;
     }]);
 
-iPlayedControllers.controller('PlayerController', ['$scope', 'Player', function ($scope, Player) {
+iPlayedControllers.controller('PlayersController', ['$scope', 'Players', function ($scope, Players) {
 
     }]);
 
