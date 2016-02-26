@@ -8,6 +8,7 @@ package be.depaz.iplayed.business.players.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -23,13 +24,21 @@ import org.eclipse.persistence.nosql.annotations.NoSql;
  * @author bdepaz
  */
 @Entity
-@NamedQuery(name = Player.findAll, query = "SELECT p FROM Player p")
+@NamedQueries({
+    @NamedQuery(
+            name = Player.findAll, 
+            query = "SELECT p FROM Player p"),
+    @NamedQuery(
+            name = Player.find, 
+            query = "SELECT p FROM Player p WHERE p.username LIKE :queryString OR p.firstname LIKE :queryString OR p.lastname LIKE :queryString")    
+})
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @NoSql(dataFormat=DataFormatType.MAPPED)
 public class Player implements Serializable {
     
     public static final String TYPE = "player";
+    public static final String find = TYPE + ".find";
     public static final String findAll = TYPE + ".findAll";
     
     @Id

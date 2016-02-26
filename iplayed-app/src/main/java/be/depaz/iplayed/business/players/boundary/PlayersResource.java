@@ -17,6 +17,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -43,8 +44,12 @@ public class PlayersResource {
     }
     
     @GET
-    public List<Player> all() {
-        return pm.all();
+    public List<Player> query(@QueryParam("queryString") String queryString) {
+        if (queryString == null) {
+            return pm.all();    
+        } else {
+            return pm.find(queryString);
+        }
     }
     
     @POST

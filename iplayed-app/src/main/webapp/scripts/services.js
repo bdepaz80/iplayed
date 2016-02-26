@@ -8,6 +8,5 @@ iPlayedServices.factory("Statistics", ['$resource', function ($resource) {
     }]);
 iPlayedServices.factory("Players", ['$resource', function ($resource) {
         return $resource("resources/players", {}, {
-            query: {method: 'GET', params:{queryString: 'queryString'}, isArray:true}
         });
     }]);

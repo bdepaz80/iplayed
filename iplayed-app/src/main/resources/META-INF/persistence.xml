@@ -10,7 +10,9 @@
             <property name="eclipselink.nosql.property.mongo.port" value="27017"/>
             <property name="eclipselink.nosql.property.mongo.host" value="192.168.99.100"/>
             <property name="eclipselink.nosql.property.mongo.db" value="iplayed"/>
-            <property name="eclipselink.logging.level" value="CONFIG"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -12,6 +12,9 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -25,7 +28,13 @@ public class PlayerManager {
     EntityManager em;
     
     public Player findByUsername(String username) {
-        return em.find(Player.class, username);
+        return this.em.find(Player.class, username);
+    }
+    
+    public List<Player> find(String queryString) {
+        Query query = this.em.createNamedQuery(Player.find, Player.class);
+        query.setParameter("queryString", queryString);
+        return query.getResultList();
     }
     
     public List<Player> all() {
