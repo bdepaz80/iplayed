@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 (function() {
-    var app = angular.module('iplayed', ['ngRoute', 'ngResource', 'iPlayedControllers', 'iPlayedDirectives']);
+    var app = angular.module('iplayed', [
+        'ngRoute', 
+        'ngResource', 
+        'iPlayedServices', 
+        'iPlayedControllers', 
+        'iPlayedDirectives']);
 
     google.setOnLoadCallback(function() {
       angular.bootstrap(document.body, ['iplayed']);

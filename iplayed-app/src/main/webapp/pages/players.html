@@ -1,3 +1,10 @@
 <div ng-controller="PlayersController as controller">
     <h3>Players</h3>
+    <input type="text" class="search" ng-model="searchString" ng-change="search()" placeholder="Enter your search terms" />
+    <div class="list-group" ng-repeat="player in searchResult">
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">{{player.username}}</h4>
+            <p class="list-group-item-text">{{player.firstname + " " + player.lastname}}</p>
+        </a>
+    </div>
 </div>

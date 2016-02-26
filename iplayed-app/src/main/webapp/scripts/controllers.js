@@ -1,11 +1,5 @@
 var iPlayedControllers = angular.module('iPlayedControllers', []);
 
-iPlayedControllers.factory("Statistics", ['$resource', function ($resource) {
-        return $resource("resources/statistics/:Username",
-                {Username: "@Username"}
-        );
-    }]);
-
 iPlayedControllers.controller('StatisticsController', ['$scope', 'Statistics', function ($scope, Statistics) {
         $scope.statistics = Statistics.get();
         //this.statistics = statistics;
@@ -16,9 +10,14 @@ iPlayedControllers.controller('StatisticsController', ['$scope', 'Statistics', f
     }]);
 
 iPlayedControllers.controller('PlayersController', ['$scope', 'Players', function ($scope, Players) {
-
+        $scope.searchString;
+        $scope.searchResult;
+        $scope.search = function() {
+            $scope.searchResult = Players.query({queryString: $scope.searchString});
+            //$scope.searchResult = Players.get();
+        };
     }]);
 
 iPlayedControllers.controller('AboutController', ['$scope', 'About', function ($scope, About) {
-
+        
     }]);
