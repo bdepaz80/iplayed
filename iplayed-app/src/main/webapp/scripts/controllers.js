@@ -1,5 +1,9 @@
 var iPlayedControllers = angular.module('iPlayedControllers', []);
 
+iPlayedControllers.controller('NavigationController', ['$scope', '$location', function($scope, $location) {
+    $scope.$location = $location;
+}]);
+
 iPlayedControllers.controller('StatisticsController', ['$scope', 'Statistics', function ($scope, Statistics) {
         $scope.statistics = Statistics.get();
         //this.statistics = statistics;

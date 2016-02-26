@@ -15,15 +15,15 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" ng-controller="NavigationController as navigationController">
             <div class="container-fluid">
                 <div class="navbar-header">
                   <a class="navbar-brand" href="#">iPlayed</a>
                 </div>
                 <ul class="nav navbar-nav">
-                  <li class="active"><a href="#statistics">Home</a></li>
-                  <li><a href="#players">Players</a></li>
-                  <li><a href="#about">About</a></li>
+                  <li ng-class="{active: $location.path() == '/statistics'}"><a href="#statistics">Home</a></li>
+                  <li ng-class="{active: $location.path() == '/players'}"><a href="#players">Players</a></li>
+                  <li ng-class="{active: $location.path() == '/about'}"><a href="#about">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <button type="button" class="btn btn-default navbar-btn">Sign in</button>
