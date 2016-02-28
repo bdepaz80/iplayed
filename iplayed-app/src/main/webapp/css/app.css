@@ -55,3 +55,15 @@ body { padding-top: 70px; }
 .glyphicon-3x { font-size: 3em; }
 .glyphicon-4x { font-size: 4em; }
 .glyphicon-5x { font-size: 5em; }
+
+.search-box {
+    margin-bottom: 3px;
+}
+.search-result {
+    margin-bottom: 1px;
+}
+
+.avatar-small {
+    width: 50px;
+    height: 50px;
+}
