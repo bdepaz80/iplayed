@@ -14,12 +14,7 @@ iPlayedControllers.controller('StatisticsController', ['$scope', 'Statistics', f
     }]);
 
 iPlayedControllers.controller('PlayersController', ['$scope', 'Players', function ($scope, Players) {
-        $scope.searchString;
-        $scope.searchResult;
-        $scope.search = function() {
-            $scope.searchResult = Players.query({queryString: $scope.searchString});
-            //$scope.searchResult = Players.get();
-        };
+        $scope.players = Players.query();
     }]);
 
 iPlayedControllers.controller('AboutController', ['$scope', 'About', function ($scope, About) {

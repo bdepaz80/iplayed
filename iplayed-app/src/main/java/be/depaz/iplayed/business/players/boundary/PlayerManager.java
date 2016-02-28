@@ -23,32 +23,48 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 @Interceptors(BoundaryLogger.class)
 public class PlayerManager {
-    
+
     @PersistenceContext
     EntityManager em;
-    
+
     public Player findByUsername(String username) {
         return this.em.find(Player.class, username);
     }
-    
+
     public List<Player> find(String queryString) {
-        Query query = this.em.createNamedQuery(Player.find, Player.class);
-        query.setParameter("queryString", queryString);
-        return query.getResultList();
+        
+        //Solution native query
+        //Ain't working: JPA error. 
+        //Query q = em.createNativeQuery("db.PLAYER.find({\"username\": \"bdepaz\"})", Player.class);
+        
+        //Solution EJBQL
+        //Still case sensitive, I have to find a way to get UPPER working...
+        String query = String.format(
+                "SELECT p FROM Player p "
+                + "WHERE p.username LIKE '%%%1$s%%' "
+                + "OR p.firstname LIKE '%%%1$s%%' "
+                + "OR p.lastname LIKE '%%%1$s%%'", queryString);
+        Query q = this.em.createQuery(query);
+        
+        //Solution "NamedQuery"
+        //NamedQuery not working, wildcard being escaped. 
+        //Query q = this.em.createNamedQuery(Player.find, Player.class);
+        //q.setParameter("queryString", queryString);
+        return q.getResultList();
     }
-    
+
     public List<Player> all() {
         return this.em.createNamedQuery(Player.findAll, Player.class)
                 .getResultList();
     }
-    
+
     public Player save(Player player) {
         em.merge(player);
         return player;
     }
-    
+
     public void delete(String username) {
         throw new UnsupportedOperationException("Not yet implemented.");
     }
-    
+
 }
