@@ -31,6 +31,10 @@
                     templateUrl: 'pages/about.html',
                     controller: 'AboutController'
                 }).
+                when('/matches', {
+                    templateUrl: 'pages/matches.html',
+                    controller: 'MatchesController'
+                }).
                 otherwise({
                     redirectTo: 'statistics'
                 });
