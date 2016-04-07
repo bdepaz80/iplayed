@@ -1,13 +1,13 @@
 <div ng-controller="MatchesController as controller">
     <div class="list-group search-result">
-        <a href="#match" class="list-group-item">
-            <div class="media match">
+        <a href="#match" class="list-group-item match" ng-repeat="match in matches | orderBy: 'playedAt': true">
+            <div class="media">
                 <div class="media-left">
                     <img class="media-object img-circle img-thumbnail img-glow avatar-small" src="images/avatar.jpeg" alt="...">
                     <p class="text-center">bdepaz</p>
                 </div>
                 <div class="media-body text-center">
-                    <small>29/02/2016</small>
+                    <small>{{match.playedAt}}</small>
                     <table>
                         <tr class="row">
                             <th class="col-md-2">bdepaz</th>

@@ -10,3 +10,7 @@ iPlayedServices.factory("Players", ['$resource', function ($resource) {
         return $resource("resources/players", {}, {
         });
     }]);
+iPlayedServices.factory("Matches", ['$resource', function ($resource) {
+        return $resource("resources/matches", {}, {
+        });
+    }]);

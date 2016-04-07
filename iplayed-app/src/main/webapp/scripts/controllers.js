@@ -18,7 +18,7 @@ iPlayedControllers.controller('PlayersController', ['$scope', 'Players', functio
     }]);
 
 iPlayedControllers.controller('MatchesController', ['$scope', 'Matches', function ($scope, Matches) {
-
+        $scope.matches = Matches.query();
     }]);
 
 iPlayedControllers.controller('AboutController', ['$scope', 'About', function ($scope, About) {

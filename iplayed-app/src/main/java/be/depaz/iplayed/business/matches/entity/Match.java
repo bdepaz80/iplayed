@@ -59,11 +59,11 @@ public class Match implements Serializable {
     @Field(name = "_id")
     private String id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player1Id", insertable = false, updatable = false)
     private Player player1;
     private String player1Id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player2Id", insertable = false, updatable = false)
     private Player player2;
     private String player2Id;
@@ -92,7 +92,7 @@ public class Match implements Serializable {
     }
 
     public Player getPlayer1() {
-        return player1;
+        return this.player1;
     }
 
     public void setPlayer1(Player player1) {
@@ -101,7 +101,7 @@ public class Match implements Serializable {
     }
 
     public Player getPlayer2() {
-        return player2;
+        return this.player2;
     }
 
     public void setPlayer2(Player player2) {

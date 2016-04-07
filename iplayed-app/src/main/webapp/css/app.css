@@ -73,6 +73,9 @@ body { padding-top: 70px; }
     height: 65px;
 }
 
+.match {
+    margin-bottom: 5px;
+}
 .match table {
     margin: 0 auto;
     margin-top: 9px;
